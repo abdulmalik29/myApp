@@ -30,4 +30,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/dotsmid" />
+
+    <EditText
+        android:id="@+id/editTextNumber"
+        android:layout_width="231dp"
+        android:layout_height="98dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="0.00"
+        android:inputType="numberDecimal"
+        android:textColor="@color/myWhite"
+        android:textColorHint="@color/myWhite"
+        android:textSize="54sp"
+
+        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

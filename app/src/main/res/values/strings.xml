@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">myApp</string>
+    <string name="History">History</string>
+    <string name="Overview">Overview</string>
+    <string name="Pie_chart">Pie chart</string>
+    <string name="Line_chart">Line chart</string>
+
 </resources>
