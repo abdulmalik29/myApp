@@ -4,5 +4,6 @@
     <string name="Overview">Overview</string>
     <string name="Pie_chart">Pie chart</string>
     <string name="Line_chart">Line chart</string>
+    <string name="Add">ADD</string>
 
 </resources>
