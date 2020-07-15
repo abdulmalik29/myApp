@@ -4,10 +4,16 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
 
+
     <color name="myBlue">#005C7A</color>
+
     <color name="myGray">#121212</color>
-    <color name="myWhite">#FFFFFF</color>
-    <color name="myByzantium">#4E2548</color>
     <color name="secondaryGray">#1A1A1A</color>
+
+
+    <color name="myWhite">#FFFFFF</color>
+    <color name="secondaryWhite">#DBDBDB</color>
+
+    <color name="myByzantium">#4E2548</color>
 
 </resources>
