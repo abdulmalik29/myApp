@@ -83,20 +83,20 @@
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/editTextNumber"
-        android:layout_width="163dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="216dp"
         android:layout_height="99dp"
         android:ems="10"
         android:gravity="center"
         android:hint="0.00"
+        android:inputType="numberDecimal"
         android:textColor="@color/myWhite"
         android:textColorHint="@color/secondaryWhite"
         android:textSize="54sp"
-        android:inputType="numberDecimal"
         app:layout_constraintBottom_toTopOf="@+id/imageView5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.638"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+        app:layout_constraintVertical_bias="0.499" />
 </androidx.constraintlayout.widget.ConstraintLayout>
