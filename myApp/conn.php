@@ -1,8 +1,4 @@
 <?php
-// $db_name = "myApp";
-// $mysql_username = "root";
-// $mysql_password = "";
-// $server_name = "localhost";
 
 define('hostname', 'localhost');
 define('user', 'root');
