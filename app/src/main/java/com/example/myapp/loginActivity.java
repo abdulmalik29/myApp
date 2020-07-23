@@ -20,6 +20,7 @@ public class loginActivity extends AppCompatActivity
 {
     private EditText passwordEditText, userNameEditText;
     private Button loginButton;
+    public static PrefConfig prefConfig;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,5 +30,18 @@ public class loginActivity extends AppCompatActivity
 
         passwordEditText = findViewById(R.id.etPassword);
         userNameEditText = findViewById(R.id.etUserName);
+
+
+        prefConfig = new PrefConfig(this);
+
+        if(prefConfig.readLoginStatus())
+        {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        }
+        else
+        {
+            Toast.makeText(this, "login page", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
