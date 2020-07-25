@@ -5,10 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-public class startActivity extends AppCompatActivity
+public class startActivity extends AppCompatActivity implements loginFragment.OnLoginFormActivityListener
 {
-    public PrefConfig prefConfig;
-
+    public static PrefConfig prefConfig;
+    public static ApiInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -17,6 +17,7 @@ public class startActivity extends AppCompatActivity
         setContentView(R.layout.activity_start);
 
         prefConfig = new PrefConfig(this);
+        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
 
         if(findViewById(R.id.fragment_container)!= null)
         {
@@ -35,5 +36,18 @@ public class startActivity extends AppCompatActivity
                         new loginFragment()).commit();
             }
         }
+    }
+
+    @Override
+    public void performRegister()
+    {
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                new registerFragment()).addToBackStack(null).commit();
+    }
+
+    @Override
+    public void performLogin(String name)
+    {
+
     }
 }
