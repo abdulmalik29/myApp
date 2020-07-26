@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-public class startActivity extends AppCompatActivity implements loginFragment.OnLoginFormActivityListener
+public class startActivity extends AppCompatActivity
 {
-    public static PrefConfig prefConfig;
-    public static ApiInterface apiInterface;
+    Button loginButton, registerButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -16,38 +17,27 @@ public class startActivity extends AppCompatActivity implements loginFragment.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        prefConfig = new PrefConfig(this);
-        apiInterface = ApiClient.getApiClient().create(ApiInterface.class);
+        loginButton= findViewById(R.id.loginBTN);
+        registerButton = findViewById(R.id.registerBTN);
 
-        if(findViewById(R.id.fragment_container)!= null)
+        registerButton.setOnClickListener(new View.OnClickListener()
         {
-            if(savedInstanceState != null)
+            @Override
+            public void onClick(View view)
             {
-                return;
+                startActivity( new Intent(startActivity.this, registerActivity.class));
+                finish();
             }
+        });
 
-            if(prefConfig.readLoginStatus()) // if the user is logged in show MainActivity
+        loginButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
             {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity( new Intent(startActivity.this, loginActivity.class));
+                finish();
             }
-            else
-            {
-                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,
-                        new loginFragment()).commit();
-            }
-        }
-    }
-
-    @Override
-    public void performRegister()
-    {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new registerFragment()).addToBackStack(null).commit();
-    }
-
-    @Override
-    public void performLogin(String name)
-    {
-
+        });
     }
 }
