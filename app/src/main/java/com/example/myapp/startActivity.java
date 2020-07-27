@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class startActivity extends AppCompatActivity
 {
@@ -25,6 +26,8 @@ public class startActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+//                Toast.makeText(startActivity.this, "Account created"
+//                        , Toast.LENGTH_SHORT).show();
                 startActivity( new Intent(startActivity.this, registerActivity.class));
                 finish();
             }
@@ -35,6 +38,7 @@ public class startActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
+
                 startActivity( new Intent(startActivity.this, loginActivity.class));
                 finish();
             }
