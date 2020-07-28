@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
-public class startActivity extends AppCompatActivity
+public class startupActivity extends AppCompatActivity
 {
     Button loginButton, registerButton;
 
@@ -16,7 +15,7 @@ public class startActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_startup);
 
         loginButton= findViewById(R.id.loginBTN);
         registerButton = findViewById(R.id.registerBTN);
@@ -28,7 +27,7 @@ public class startActivity extends AppCompatActivity
             {
 //                Toast.makeText(startActivity.this, "Account created"
 //                        , Toast.LENGTH_SHORT).show();
-                startActivity( new Intent(startActivity.this, registerActivity.class));
+                startActivity( new Intent(startupActivity.this, registerActivity.class));
                 finish();
             }
         });
@@ -39,7 +38,7 @@ public class startActivity extends AppCompatActivity
             public void onClick(View view)
             {
 
-                startActivity( new Intent(startActivity.this, loginActivity.class));
+                startActivity( new Intent(startupActivity.this, loginActivity.class));
                 finish();
             }
         });
