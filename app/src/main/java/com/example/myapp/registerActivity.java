@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -79,6 +80,8 @@ public class registerActivity extends AppCompatActivity
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(registerActivity.this, "Account created"
                                     , Toast.LENGTH_SHORT).show();
+                            startActivity( new Intent(registerActivity.this, MainActivity.class));
+                            finish();
                         } else
                             {
                             // If sign in fails, display a message to the user.
