@@ -44,11 +44,11 @@ public class registerActivity extends AppCompatActivity
         confirmPasswordEditText = findViewById(R.id.confirmPasswordETXT);
         progressBar = findViewById(R.id.progressBar);
 
-        if (auth.getCurrentUser() != null)
-        {
-            startActivity(new Intent(registerActivity.this, MainActivity.class));
-            finish();
-        }
+//        if (auth.getCurrentUser() != null)
+//        {
+//            startActivity(new Intent(registerActivity.this, MainActivity.class));
+//            finish();
+//        }
 
 
 
@@ -59,7 +59,7 @@ public class registerActivity extends AppCompatActivity
             {
                 if (checkInput())
                 {
-
+                    progressBar.setVisibility(View.VISIBLE);
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener
                             (registerActivity.this, new OnCompleteListener<AuthResult>()
                     {
@@ -70,10 +70,11 @@ public class registerActivity extends AppCompatActivity
                             {
                                 Toast.makeText(registerActivity.this, "Registration failed",
                                         Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.INVISIBLE);
+
                             }
                             else
                                 {
-                                    progressBar.setVisibility(View.VISIBLE);
                                     startActivity(new Intent(registerActivity.this, MainActivity.class));
                                     finish();
                                     Toast.makeText(registerActivity.this, "Welcome",
