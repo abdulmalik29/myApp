@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class startupActivity extends AppCompatActivity
 {
     Button loginButton, registerButton;
@@ -19,6 +21,12 @@ public class startupActivity extends AppCompatActivity
 
         loginButton= findViewById(R.id.loginBTN);
         registerButton = findViewById(R.id.registerBTN);
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null)
+        {
+            startActivity(new Intent(startupActivity.this, MainActivity.class));
+            finish();
+        }
 
         registerButton.setOnClickListener(new View.OnClickListener()
         {

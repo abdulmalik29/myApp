@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -21,6 +24,8 @@ import com.google.firebase.FirebaseAppLifecycleListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,7 +33,7 @@ public class registerActivity extends AppCompatActivity
 {
     private EditText nameEditText, emailEditText, passwordEditText, confirmPasswordEditText;
     private Button registerButton;
-    private String email, password, confirmPassword, passwordRegx, emailRegx;
+    private String email, password, confirmPassword, passwordRegx, emailRegx, name;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
 
@@ -37,48 +42,48 @@ public class registerActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        auth = FirebaseAuth.getInstance();
         registerButton = findViewById(R.id.registerButton);
+        nameEditText = findViewById(R.id.nameEtxt);
         emailEditText = findViewById(R.id.emailEtxt);
         passwordEditText = findViewById(R.id.passwordEtxt);
         confirmPasswordEditText = findViewById(R.id.confirmPasswordETXT);
         progressBar = findViewById(R.id.progressBar);
 
-//        if (auth.getCurrentUser() != null)
-//        {
-//            startActivity(new Intent(registerActivity.this, MainActivity.class));
-//            finish();
-//        }
-
-
+        auth = FirebaseAuth.getInstance();
 
         registerButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
+                Tools.Keyboard.hide(registerActivity.this);
+
+
                 if (checkInput())
                 {
                     progressBar.setVisibility(View.VISIBLE);
+                    Toast.makeText(registerActivity.this, "This may take a while",
+                            Toast.LENGTH_SHORT).show();
+
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener
                             (registerActivity.this, new OnCompleteListener<AuthResult>()
                     {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task)
                         {
-                            if(!task.isSuccessful())
+                            if(task.isSuccessful())
                             {
-                                Toast.makeText(registerActivity.this, "Registration failed",
+                                Toast.makeText(registerActivity.this, "Welcome " + name,
                                         Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.INVISIBLE);
 
+                                startActivity(new Intent(registerActivity.this, MainActivity.class));
+                                finish();
                             }
                             else
                                 {
-                                    startActivity(new Intent(registerActivity.this, MainActivity.class));
-                                    finish();
-                                    Toast.makeText(registerActivity.this, "Welcome",
+                                    Toast.makeText(registerActivity.this, "Registration failed",
                                             Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.INVISIBLE);
 
 
                                 }
@@ -99,11 +104,13 @@ public class registerActivity extends AppCompatActivity
 
     private boolean checkInput()
     {
+        name = nameEditText.getText().toString();
         email = emailEditText.getText().toString();
         password = passwordEditText.getText().toString();
         confirmPassword = confirmPasswordEditText.getText().toString();
+
         passwordRegx = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
-        emailRegx = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$" ;
+        emailRegx = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
 
         Pattern passPattern = Pattern.compile(passwordRegx );
         Matcher passMatcher = passPattern.matcher(password);
@@ -113,7 +120,7 @@ public class registerActivity extends AppCompatActivity
 
 
 
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword))
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(confirmPassword) || TextUtils.isEmpty(name))
         {
             Toast.makeText(registerActivity.this, "You must fill in all the information",
                     Toast.LENGTH_SHORT).show();
@@ -149,5 +156,11 @@ public class registerActivity extends AppCompatActivity
         return true;
     }
 
+
+    public void onClick(View view)
+    {
+        startActivity(new Intent(registerActivity.this, loginActivity.class));
+        finish();
+    }
 
 }

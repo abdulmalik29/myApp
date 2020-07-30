@@ -1,16 +1,22 @@
 package com.example.myapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -45,6 +51,7 @@ public class loginActivity extends AppCompatActivity
 //                progressBar.setVisibility(View.VISIBLE);
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
+                Tools.Keyboard.hide(loginActivity.this);
 
                 preformLogin(email,password);
             }
@@ -53,15 +60,32 @@ public class loginActivity extends AppCompatActivity
 
     private void preformLogin(String email, String password)
     {
-        auth.signInWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>()
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(loginActivity.this,  new OnCompleteListener<AuthResult>()
         {
             @Override
-            public void onSuccess(AuthResult authResult)
+            public void onComplete(@NonNull Task<AuthResult> task)
             {
-                Toast.makeText(loginActivity.this, "Login in successful", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(loginActivity.this, MainActivity.class));
-                finish();
+                if(task.isSuccessful())
+                {
+                    startActivity(new Intent(loginActivity.this, MainActivity.class));
+                    finish();
+                    Toast.makeText(loginActivity.this, "Welcome",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(loginActivity.this, "Login failed" + task.getException().getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
+    }
+
+    public void onClick(View view)
+    {
+        startActivity(new Intent(loginActivity.this, registerActivity.class));
+        finish();
     }
 }
