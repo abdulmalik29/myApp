@@ -88,8 +88,8 @@ public class DB_Sqlite extends SQLiteOpenHelper
         ContentValues cv = new ContentValues();
         cv.put("userID", user.getUserID());
         cv.put("categoryID", "1");
-        cv.put("amount", transaction.getAmount());
-        cv.put("date", );
+        cv.put("amount", "");
+        cv.put("date", "");
 
         long insert = db.insert(TRANSACTIONS_TABLE, null, cv);
         if (insert == -1)

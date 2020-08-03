@@ -1,11 +1,21 @@
 package com.example.myapp;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity (tableName = "Users")
 public class User
 {
+    @PrimaryKey
     private String userID;
+
+    @ColumnInfo(name = "userName")
     private String name;
+
+    @ColumnInfo(name = "userEmail")
     private String email;
-    private double balance;
+
 
     public String getUserID()
     {
@@ -17,12 +27,9 @@ public class User
         this.userID = userID;
     }
 
-    public User(String id, String name, String email, double balance)
+    public String getName()
     {
-        this.userID = id;
-        this.name = name;
-        this.email = email;
-        this.balance = balance;
+        return name;
     }
 
     public void setName(String name)
@@ -30,28 +37,13 @@ public class User
         this.name = name;
     }
 
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
-
-    public void setBalance(float balance)
-    {
-        this.balance = balance;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
     public String getEmail()
     {
         return email;
     }
 
-    public double getBalance()
+    public void setEmail(String email)
     {
-        return balance;
+        this.email = email;
     }
 }
