@@ -23,6 +23,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseAppLifecycleListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -77,8 +81,8 @@ public class registerActivity extends AppCompatActivity
                         {
                             if(task.isSuccessful())
                             {
-                                user = new User(auth.getUid(), name, email, 0.0);
-                                boolean isAdded = db.addUser(user);
+//                                user = new User(auth.getUid(), name, email, 0.0);
+//                                boolean isAdded = db.addUser(user);
                                 Toast.makeText(registerActivity.this, "Welcome " + name,
                                         Toast.LENGTH_SHORT).show();
 
@@ -86,13 +90,27 @@ public class registerActivity extends AppCompatActivity
                                 finish();
                             }
                             else
+                            {
+                                progressBar.setVisibility(View.INVISIBLE);
+                                String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+                                switch (errorCode)
                                 {
-                                    Toast.makeText(registerActivity.this, "Registration failed",
-                                            Toast.LENGTH_SHORT).show();
-                                    progressBar.setVisibility(View.INVISIBLE);
+                                case "ERROR_INVALID_CREDENTIAL":
+                                    emailEditText.setError("Invalid credential");
+                                    emailEditText.requestFocus();
+                                    break;
 
+                                case "ERROR_INVALID_EMAIL":
+                                    emailEditText.setError("Email is badly formatted ");
+                                    emailEditText.requestFocus();
+                                    break;
 
+                                case "ERROR_EMAIL_ALREADY_IN_USE":
+                                    emailEditText.setError("Email is is already in use by another account ");
+                                    emailEditText.requestFocus();
+                                    break;
                                 }
+                            }
                         }
                     });
 

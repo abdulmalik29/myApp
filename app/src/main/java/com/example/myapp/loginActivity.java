@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 
 public class loginActivity extends AppCompatActivity
 {
@@ -67,6 +68,27 @@ public class loginActivity extends AppCompatActivity
                         }
                         else
                         {
+                            String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
+
+                            switch (errorCode)
+                            {
+
+                                case "ERROR_INVALID_CREDENTIAL":
+                                    emailEditText.setError("Invalid credential");
+                                    emailEditText.requestFocus();
+                                    break;
+
+                                case "ERROR_INVALID_EMAIL":
+                                    emailEditText.setError("Email is badly formatted ");
+                                    emailEditText.requestFocus();
+                                    break;
+
+
+                                case "ERROR_WRONG_PASSWORD":
+                                    passwordEditText.setError("password is incorrect ");
+                                    passwordEditText.requestFocus();
+                                    break;
+                            }
                             Toast.makeText(loginActivity.this, "Login failed: " + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
