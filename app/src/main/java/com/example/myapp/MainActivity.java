@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity
             {
                 if (checkInput())
                 {
-                    User user = registerActivity.user;
-                    Transaction transaction = new Transaction(1, auth.getUid(), 1, amountInString, localDate.toString());
-                    boolean b = db.addUser(user);
-                    Toast.makeText(MainActivity.this, "" + b, Toast.LENGTH_SHORT).show();
+//                    User user = registerActivity.user;
+//                    Transaction transaction = new Transaction(1, auth.getUid(), 1, amountInString, localDate.toString());
+//                    boolean b = db.addUser(user);
+                    Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
                 }
                 else
                     {

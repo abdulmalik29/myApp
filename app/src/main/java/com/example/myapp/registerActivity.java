@@ -41,8 +41,8 @@ public class registerActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private FirebaseAuth auth;
 
-    private DB_Sqlite db = new DB_Sqlite(this);
-    public static User user;
+//    private DB_Sqlite db = new DB_Sqlite(this);
+//    public  User user;
 
 
     @Override
@@ -70,8 +70,8 @@ public class registerActivity extends AppCompatActivity
                 if (checkInput())
                 {
                     progressBar.setVisibility(View.VISIBLE);
-                    Toast.makeText(registerActivity.this, "This may take a while",
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(registerActivity.this, "This may take a while",
+//                            Toast.LENGTH_SHORT).show();
 
                     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener
                             (registerActivity.this, new OnCompleteListener<AuthResult>()
@@ -110,6 +110,8 @@ public class registerActivity extends AppCompatActivity
                                     emailEditText.requestFocus();
                                     break;
                                 }
+//                                Toast.makeText(registerActivity.this, "Registration failed: "
+//                                        + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

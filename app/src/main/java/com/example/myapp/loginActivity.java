@@ -74,12 +74,17 @@ public class loginActivity extends AppCompatActivity
                             {
 
                                 case "ERROR_INVALID_CREDENTIAL":
-                                    emailEditText.setError("Invalid credential");
+                                    emailEditText.setError("Invalid credential ");
                                     emailEditText.requestFocus();
                                     break;
 
                                 case "ERROR_INVALID_EMAIL":
                                     emailEditText.setError("Email is badly formatted ");
+                                    emailEditText.requestFocus();
+                                    break;
+
+                                case "ERROR_USER_NOT_FOUND":
+                                    emailEditText.setError("Email not found ");
                                     emailEditText.requestFocus();
                                     break;
 
@@ -89,8 +94,8 @@ public class loginActivity extends AppCompatActivity
                                     passwordEditText.requestFocus();
                                     break;
                             }
-                            Toast.makeText(loginActivity.this, "Login failed: " + task.getException().getMessage(),
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(loginActivity.this, "Login failed: " + task.getException().getMessage(),
+//                                    Toast.LENGTH_SHORT).show();
                         }
 
 
