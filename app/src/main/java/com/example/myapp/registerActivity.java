@@ -88,6 +88,7 @@ public class registerActivity extends AppCompatActivity
 
                                 startActivity(new Intent(registerActivity.this, MainActivity.class));
                                 finish();
+                                progressBar.setVisibility(View.INVISIBLE);
                             }
                             else
                             {

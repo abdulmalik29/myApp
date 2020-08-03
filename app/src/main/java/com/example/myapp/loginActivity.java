@@ -49,7 +49,7 @@ public class loginActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-//                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 Tools.Keyboard.hide(loginActivity.this);
@@ -65,9 +65,11 @@ public class loginActivity extends AppCompatActivity
                             finish();
                             Toast.makeText(loginActivity.this, "Welcome",
                                     Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.INVISIBLE);
                         }
                         else
                         {
+                            progressBar.setVisibility(View.INVISIBLE);
                             String errorCode = ((FirebaseAuthException) task.getException()).getErrorCode();
 
                             switch (errorCode)

@@ -1,14 +1,15 @@
 package com.example.myapp;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity (tableName = "Users")
+@Entity (primaryKeys  = "userID", tableName = "Users")
 public class User
 {
-    @PrimaryKey
-    private int userID;
+    @NonNull
+    private String userID;
 
     @ColumnInfo(name = "userName")
     private String name;
@@ -17,12 +18,12 @@ public class User
     private String email;
 
 
-    public int getUserID()
+    public String getUserID()
     {
         return userID;
     }
 
-    public void setUserID(int userID)
+    public void setUserID(String userID)
     {
         this.userID = userID;
     }
