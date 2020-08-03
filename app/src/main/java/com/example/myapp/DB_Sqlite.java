@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.sql.Date;
+
 public class DB_Sqlite extends SQLiteOpenHelper
 {
     public static final String DBname = "myApp.db";
@@ -79,13 +81,15 @@ public class DB_Sqlite extends SQLiteOpenHelper
 
     public boolean addTransaction(Transaction transaction, User user)
     {
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put("userID", user.getUserID());
-        cv.put("categoryID", "");
+        cv.put("categoryID", "1");
         cv.put("amount", transaction.getAmount());
-        cv.put("date", transaction.getLocalDate());
+        cv.put("date", );
 
         long insert = db.insert(TRANSACTIONS_TABLE, null, cv);
         if (insert == -1)

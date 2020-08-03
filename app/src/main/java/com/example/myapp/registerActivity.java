@@ -37,8 +37,8 @@ public class registerActivity extends AppCompatActivity
     private ProgressBar progressBar;
     private FirebaseAuth auth;
 
-    public DB_Sqlite db = new DB_Sqlite(this);
-    public User user;
+    private DB_Sqlite db = new DB_Sqlite(this);
+    public static User user;
 
 
     @Override
@@ -78,7 +78,7 @@ public class registerActivity extends AppCompatActivity
                             if(task.isSuccessful())
                             {
                                 user = new User(auth.getUid(), name, email, 0.0);
-                                boolean b = db.addUser(user);
+                                boolean isAdded = db.addUser(user);
                                 Toast.makeText(registerActivity.this, "Welcome " + name,
                                         Toast.LENGTH_SHORT).show();
 

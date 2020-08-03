@@ -53,32 +53,27 @@ public class loginActivity extends AppCompatActivity
                 String password = passwordEditText.getText().toString();
                 Tools.Keyboard.hide(loginActivity.this);
 
-                preformLogin(email,password);
-            }
-        });
-    }
-
-    private void preformLogin(String email, String password)
-    {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(loginActivity.this,  new OnCompleteListener<AuthResult>()
-        {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task)
-            {
-                if(task.isSuccessful())
+                auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(loginActivity.this,  new OnCompleteListener<AuthResult>()
                 {
-                    startActivity(new Intent(loginActivity.this, MainActivity.class));
-                    finish();
-                    Toast.makeText(loginActivity.this, "Welcome",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(loginActivity.this, "Login failed" + task.getException().getMessage(),
-                            Toast.LENGTH_SHORT).show();
-                }
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if(task.isSuccessful())
+                        {
+                            startActivity(new Intent(loginActivity.this, MainActivity.class));
+                            finish();
+                            Toast.makeText(loginActivity.this, "Welcome",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(loginActivity.this, "Login failed: " + task.getException().getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
 
+                    }
+                });
             }
         });
     }

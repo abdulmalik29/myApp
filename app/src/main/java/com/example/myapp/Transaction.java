@@ -7,15 +7,15 @@ public class Transaction
 {
     private int transactionsID;
     private String userID;
-    private String category;
+    private int categoryID;
     private String amount;
     private String LocalDate;
 
-    public Transaction(int transactionsID, String userID, String category, String amount, String date)
+    public Transaction(int transactionsID, String userID, int categoryID, String amount, String date)
     {
         this.transactionsID = transactionsID;
         this.userID = userID;
-        this.category = category;
+        this.categoryID = categoryID;
         this.amount = amount;
         this.LocalDate = date;
     }
@@ -31,9 +31,9 @@ public class Transaction
         return userID;
     }
 
-    public String getCategory()
+    public int getCategoryID()
     {
-        return category;
+        return categoryID;
     }
 
     public String getAmount()

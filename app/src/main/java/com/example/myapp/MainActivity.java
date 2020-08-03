@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,10 @@ public class MainActivity extends AppCompatActivity
     EditText amountEditText;
     String amountInString, amountRegx;
     BigDecimal amountInBigDecimal;
+
+    private DB_Sqlite db = new DB_Sqlite(this);
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+
 
 
     @Override
@@ -33,6 +38,9 @@ public class MainActivity extends AppCompatActivity
         addAmountButton = findViewById(R.id.addAmountBtn);
         amountEditText = findViewById(R.id.amountETxt);
 
+        final LocalDate localDate = LocalDate.now();
+
+
         addAmountButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -40,7 +48,10 @@ public class MainActivity extends AppCompatActivity
             {
                 if (checkInput())
                 {
-                    Toast.makeText(MainActivity.this, "nice", Toast.LENGTH_SHORT).show();
+                    User user = registerActivity.user;
+                    Transaction transaction = new Transaction(1, auth.getUid(), 1, amountInString, localDate.toString());
+                    boolean b = db.addUser(user);
+                    Toast.makeText(MainActivity.this, "" + b, Toast.LENGTH_SHORT).show();
                 }
                 else
                     {
@@ -50,12 +61,6 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    public void logout(View view)
-    {
-        FirebaseAuth.getInstance().signOut();
-        startActivity( new Intent(MainActivity.this, startupActivity.class));
-        finish();
-    }
 
     private boolean checkInput()
     {
@@ -79,5 +84,12 @@ public class MainActivity extends AppCompatActivity
             return false;
         }
         return true;
+    }
+
+    public void logout(View view)
+    {
+        FirebaseAuth.getInstance().signOut();
+        startActivity( new Intent(MainActivity.this, startupActivity.class));
+        finish();
     }
 }
