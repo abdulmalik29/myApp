@@ -4,19 +4,50 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.math.BigDecimal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class MainActivity extends AppCompatActivity
 {
+    Button addAmountButton;
+    EditText amountEditText;
+    String amountInString, amountRegx;
+    BigDecimal amountInBigDecimal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //test123
+
+        addAmountButton = findViewById(R.id.addAmountBtn);
+        amountEditText = findViewById(R.id.amountETxt);
+
+        addAmountButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if (checkInput())
+                {
+                    Toast.makeText(MainActivity.this, "nice", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    {
+                        Toast.makeText(MainActivity.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                    }
+            }
+        });
     }
 
     public void logout(View view)
@@ -24,5 +55,29 @@ public class MainActivity extends AppCompatActivity
         FirebaseAuth.getInstance().signOut();
         startActivity( new Intent(MainActivity.this, startupActivity.class));
         finish();
+    }
+
+    private boolean checkInput()
+    {
+        amountInString =  amountEditText.getText().toString();
+
+        amountRegx = "^(\\d*\\.*)?\\d{0,3}$";
+        Pattern amountPattern = Pattern.compile(amountRegx );
+        Matcher amountMatcher = amountPattern.matcher(amountInString);
+
+
+        if(TextUtils.isEmpty(amountInString))
+        {
+            amountEditText.setError("Add amount");
+            amountEditText.requestFocus();
+            return false;
+        }
+        else if (!(amountMatcher.find()))
+        {
+            amountEditText.setError("Incorrect input");
+            amountEditText.requestFocus();
+            return false;
+        }
+        return true;
     }
 }

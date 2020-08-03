@@ -7,6 +7,8 @@ import android.view.inputmethod.InputMethodManager;
 
 public class Tools
 {
+    public static int divideBy = 100;
+
     public static class Keyboard
     {
         public static void hide(Activity activity)

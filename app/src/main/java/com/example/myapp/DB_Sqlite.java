@@ -12,6 +12,7 @@ public class DB_Sqlite extends SQLiteOpenHelper
     public static final String DBname = "myApp.db";
     public static final String USERS_TABLE = "Users";
     public static final String TRANSACTIONS_TABLE = "Transactions";
+    public static final String CATEGORY_TABLE = "Category";
 
     public DB_Sqlite(@Nullable Context context)
     {
@@ -23,13 +24,29 @@ public class DB_Sqlite extends SQLiteOpenHelper
     {
         sqLiteDatabase.execSQL("CREATE TABLE " + USERS_TABLE + " (userID VARCHAR PRIMARY KEY , name VARCHAR , email VARCHAR)");
 
-        sqLiteDatabase.execSQL("CREATE TABLE Transactions (" +
-                "    transactionsID INTEGER PRIMARY KEY," +
-                "    userID         STRING  REFERENCES Users (userID)," +
-                "    category       STRING," +
-                "    amount         INTEGER  NOT NULL," +
-                "    date           DATE\n" +
-                ") ");
+        sqLiteDatabase.execSQL("CREATE TABLE " + TRANSACTIONS_TABLE + " (" +
+                "    transactionsID INTEGER PRIMARY KEY\n" +
+                "                           UNIQUE" +
+                "                           NOT NULL," +
+                "    userID         STRING  REFERENCES Users (userID)" +
+                "                           NOT NULL," +
+                "    categoryID     INTEGER REFERENCES " + CATEGORY_TABLE + " (categoryID)" +
+                "                           NOT NULL," +
+                "    amount         DOUBLE  NOT NULL," +
+                "    date           DATE    NOT NULL" +
+                ");");
+
+        sqLiteDatabase.execSQL("CREATE TABLE " + CATEGORY_TABLE + " (" +
+                "    categoryID INTEGER PRIMARY KEY" +
+                "                       NOT NULL," +
+                "    userID     STRING  REFERENCES Users (userID) " +
+                "                       NOT NULL," +
+                "    name       STRING  UNIQUE" +
+                "                       NOT NULL," +
+                "    total      STRING  NOT NULL" +
+                ");");
+
+
     }
 
     @Override
@@ -58,5 +75,27 @@ public class DB_Sqlite extends SQLiteOpenHelper
             {
                 return true;
             }
+    }
+
+    public boolean addTransaction(Transaction transaction, User user)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("userID", user.getUserID());
+        cv.put("categoryID", "");
+        cv.put("amount", transaction.getAmount());
+        cv.put("date", transaction.getLocalDate());
+
+        long insert = db.insert(TRANSACTIONS_TABLE, null, cv);
+        if (insert == -1)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+
     }
 }
