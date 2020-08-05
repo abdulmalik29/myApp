@@ -10,16 +10,19 @@ import java.time.LocalDate;
 @Entity(tableName = "Transactions")
 public class Transaction
 {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int transactionsID;
-
-    @ForeignKey(entity = User.class, parentColumns = "userID", childColumns = "userID", onDelete = ForeignKey.CASCADE)
     private String userID;
-
-    @ForeignKey(entity = Category.class, parentColumns = "categoryID", childColumns = "categoryID", onDelete = ForeignKey.CASCADE)
-    private int categoryID;
+    private String categoryID;
     private BigDecimal amount;
     private LocalDate LocalDate;
 
-
+    public Transaction(int transactionsID, String userID, String categoryID, BigDecimal amount, java.time.LocalDate localDate)
+    {
+        this.transactionsID = transactionsID;
+        this.userID = userID;
+        this.categoryID = categoryID;
+        this.amount = amount;
+        LocalDate = localDate;
+    }
 }

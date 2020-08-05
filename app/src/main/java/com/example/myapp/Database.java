@@ -1,14 +1,26 @@
 package com.example.myapp;
 
-import androidx.room.Dao;
-import androidx.room.PrimaryKey;
+import android.content.Context;
+
+import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@androidx.room.Database(entities = {User.class}, version = 1)
+@androidx.room.Database(entities = {Transaction.class}, version = 1)
 public abstract class Database extends RoomDatabase
 {
-    public abstract DAO dao();
+    private static volatile Database database ;
 
-    private static volatile int i;
+    public abstract TransactionDAO transactionDAO();
+
+    public static synchronized Database getDatabase(Context context)
+    {
+        if (database == null)
+        {
+            database = Room.databaseBuilder(context.getApplicationContext(), Database.class,
+                    "myAppDatabase").fallbackToDestructiveMigration().build();
+        }
+        return database;
+    }
+
 
 }
