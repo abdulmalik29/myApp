@@ -14,15 +14,35 @@ public class Transaction
     private int transactionsID;
     private String userID;
     private String categoryID;
-    private BigDecimal amount;
-    private LocalDate LocalDate;
+    private String amount;
+    //private LocalDate LocalDate;
 
-    public Transaction(int transactionsID, String userID, String categoryID, BigDecimal amount, java.time.LocalDate localDate)
+    public Transaction(int transactionsID, String userID, String categoryID, String amount)
     {
         this.transactionsID = transactionsID;
         this.userID = userID;
         this.categoryID = categoryID;
         this.amount = amount;
-        LocalDate = localDate;
+        //LocalDate = localDate;
+    }
+
+    public int getTransactionsID()
+    {
+        return transactionsID;
+    }
+
+    public String getUserID()
+    {
+        return userID;
+    }
+
+    public String getCategoryID()
+    {
+        return categoryID;
+    }
+
+    public String getAmount()
+    {
+        return amount;
     }
 }

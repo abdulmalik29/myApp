@@ -1,6 +1,7 @@
 package com.example.myapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,9 +25,8 @@ public class MainActivity extends AppCompatActivity
     String amountInString, amountRegx;
     BigDecimal amountInBigDecimal;
 
-    private DB_Sqlite db = new DB_Sqlite(this);
+    ViewModel viewModel;
     FirebaseAuth auth = FirebaseAuth.getInstance();
-
 
 
     @Override
@@ -38,8 +38,7 @@ public class MainActivity extends AppCompatActivity
         addAmountButton = findViewById(R.id.addAmountBtn);
         amountEditText = findViewById(R.id.amountETxt);
 
-        final LocalDate localDate = LocalDate.now();
-
+        viewModel = new ViewModelProvider(this).get(ViewModel.class);
 
         addAmountButton.setOnClickListener(new View.OnClickListener()
         {
@@ -48,10 +47,11 @@ public class MainActivity extends AppCompatActivity
             {
                 if (checkInput())
                 {
-//                    User user = registerActivity.user;
-//                    Transaction transaction = new Transaction(1, auth.getUid(), 1, amountInString, localDate.toString());
-//                    boolean b = db.addUser(user);
-                    Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
+                    amountInBigDecimal = new BigDecimal(amountInString);
+                    final LocalDate localDate = LocalDate.now();
+
+                    Transaction t = new Transaction(1, auth.getUid(), "transport", amountInString);
+                    Toast.makeText(MainActivity.this, "!!!1", Toast.LENGTH_SHORT).show();
                 }
                 else
                     {
@@ -86,10 +86,17 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+
     public void logout(View view)
     {
         FirebaseAuth.getInstance().signOut();
         startActivity( new Intent(MainActivity.this, startupActivity.class));
         finish();
+    }
+
+
+    public void testClick(View view)
+    {
+        startActivity( new Intent(MainActivity.this, leftActivity.class));
     }
 }

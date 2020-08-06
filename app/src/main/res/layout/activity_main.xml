@@ -111,4 +111,16 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="#FF0000"
         android:onClick="logout"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.513"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="testClick"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

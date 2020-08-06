@@ -13,7 +13,7 @@ import java.util.List;
 public interface TransactionDAO
 {
     @Insert
-    void addTransaction(Transaction transaction);
+    void insert(Transaction transaction);
 
     @Update
     void updateTransaction(Transaction transaction);
@@ -21,8 +21,8 @@ public interface TransactionDAO
     @Delete
     void deleteTransaction(Transaction transaction);
 
-    @Query("SELECT * FROM Transactions ORDER BY LocalDate DESC")
-    LiveData<List<Transaction>> getAllTransaction(Transaction transaction);
+//    @Query("SELECT * FROM Transactions")
+//    LiveData<List<Transaction>> getAllTransaction(Transaction transaction);
 
     //WHERE userID LIKE userID , String userID
 }

@@ -12,12 +12,16 @@ public abstract class Database extends RoomDatabase
 
     public abstract TransactionDAO transactionDAO();
 
-    public static synchronized Database getDatabase(Context context)
+    public static Database getDatabase(Context context)
     {
         if (database == null)
         {
-            database = Room.databaseBuilder(context.getApplicationContext(), Database.class,
-                    "myAppDatabase").fallbackToDestructiveMigration().build();
+            synchronized (Database.class)
+            {
+                database = Room.databaseBuilder(context.getApplicationContext(), Database.class,
+                        "myAppDatabase").fallbackToDestructiveMigration().build();
+            }
+
         }
         return database;
     }

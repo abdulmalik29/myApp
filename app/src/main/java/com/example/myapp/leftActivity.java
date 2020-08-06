@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import java.util.ArrayList;
+
 public class leftActivity extends AppCompatActivity
 {
 
@@ -12,5 +14,8 @@ public class leftActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_left);
+
+        ArrayList<transactionsRow> transactionList = new ArrayList<>();
+
     }
 }
