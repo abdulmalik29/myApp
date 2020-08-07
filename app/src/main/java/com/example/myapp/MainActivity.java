@@ -2,6 +2,7 @@ package com.example.myapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -50,7 +51,9 @@ public class MainActivity extends AppCompatActivity
                     amountInBigDecimal = new BigDecimal(amountInString);
                     final LocalDate localDate = LocalDate.now();
 
-                    Transaction t = new Transaction(1, auth.getUid(), "transport", amountInString);
+                    Database db = Room.databaseBuilder(getApplicationContext(), Database.class,
+                            "dbTest").allowMainThreadQueries().build();
+                    db.transactionDAO().insert( new Transaction( auth.getUid(), "transport", amountInString));
                     Toast.makeText(MainActivity.this, "!!!1", Toast.LENGTH_SHORT).show();
                 }
                 else

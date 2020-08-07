@@ -21,8 +21,6 @@ public interface TransactionDAO
     @Delete
     void deleteTransaction(Transaction transaction);
 
-//    @Query("SELECT * FROM Transactions")
-//    LiveData<List<Transaction>> getAllTransaction(Transaction transaction);
-
-    //WHERE userID LIKE userID , String userID
+    @Query("SELECT * From Transactions")
+    List<Transaction> getAllTransaction();
 }

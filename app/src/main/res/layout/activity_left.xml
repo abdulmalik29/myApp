@@ -52,5 +52,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="transactions_row" />
+        tools:listitem="transactions_row"
+        android:background="@color/myWhite"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

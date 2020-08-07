@@ -17,13 +17,17 @@ public class Transaction
     private String amount;
     //private LocalDate LocalDate;
 
-    public Transaction(int transactionsID, String userID, String categoryID, String amount)
+    public Transaction(String userID, String categoryID, String amount)
     {
-        this.transactionsID = transactionsID;
         this.userID = userID;
         this.categoryID = categoryID;
         this.amount = amount;
         //LocalDate = localDate;
+    }
+
+    public void setTransactionsID(int transactionsID)
+    {
+        this.transactionsID = transactionsID;
     }
 
     public int getTransactionsID()
